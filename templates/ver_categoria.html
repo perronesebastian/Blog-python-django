@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+{% load static%}
+
+    {% block titulo %}
+        Categoria: {{categoria.nombre}}
+    {% endblock titulo %}
+
+    {%block imagen_principal %}
+    <header class="masthead" style="background-image: url('{{categoria.imagen}}')";>
+    {%endblock imagen_principal %}
+    {% block titulo_principal %}
+        <h1>{{categoria.nombre}}</h1>
+    {% endblock titulo_principal %}
+
+    {%block contenido %}
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+            {% if posts %}
+                {% for post in posts %}
+                <div class="post-preview">
+                    <a href="{% url 'blog:ver_post' post.slug %}">
+                    <h3 class="post-title">
+                        {{ post.titulo }}
+                    </h3>
+                    </a>
+                    <p class="post-meta">
+                        <strong>{{ post.autor }}</strong> |
+                        <strong>creado</strong> {{ post.fecha_creacion }} |
+                        <strong>editado</strong> {{ post.fecha_modificacion }}
+                    </p>
+                </div>
+                <hr>
+                {% endfor %}
+            {% else %}
+                <h2>No hay posts disponibles para esta categoria!</h2>
+            {% endif %}
+            <!-- Pager -->
+            <div class="clearfix">
+                <a class="btn btn-primary float-right" href="{% url 'blog:categorias_post' %}">Volver &rarr;</a>
+            </div>
+            </div>
+        </div>
+        </div>
+        <hr>
+    {%endblock contenido%}
