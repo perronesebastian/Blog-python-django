@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% load static%}
+
+    {% block titulo %}
+        Cerrar Sesion
+    {% endblock titulo %}
+
+    {%block imagen_principal %}
+    <header class="masthead" style="background-image: url('/static/img/categorias.jpg')";>
+    {%endblock imagen_principal %}
+    {% block titulo_principal %}
+        <h1>Cerrando Sesion</h1>
+    {% endblock titulo_principal %}
+
+    {%block barra_busqueda%}
+    {%endblock barra_busqueda%}
+
+    {%block contenido %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-preview">
+                    <div class='content-section'>
+                        <h2>Su sesion se ha cerrado</h2>
+                        <div class="border-top pt-3">
+                        <small class="text-muted">
+                            <a class="ml-2" href="{% url 'blog:acceder' %}">Volver a iniciar sesion</a>
+                        </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endblock contenido%}
+
+    
+
+
+
