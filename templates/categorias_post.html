@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+{% load static%}
+
+    {% block titulo %}
+        Ver Categorias
+    {% endblock titulo %}
+
+    {%block imagen_principal %}
+    <header class="masthead" style="background-image: url('/static/img/categoria.jpg')";>
+    {%endblock imagen_principal %}
+    {% block titulo_principal %}
+        <h1>Categorias</h1>
+    {% endblock titulo_principal %}
+
+    {%block contenido %}
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+            {% if categorias %}
+                {% for categoria in categorias %}
+                <div class="post-preview">
+                    <a href="{% url 'blog:ver_categoria' categoria.id%}">
+                    <h2 class="post-title">
+                        {{ categoria.nombre }}
+                    </h2>
+                    </a>
+                    <p class="post-meta">
+                    <strong>creado</strong> {{ categoria.fecha_creacion }}
+                    </p>
+                </div>
+                <hr>
+                {% endfor %}
+            {% else %}
+                <h1>No existen categorias registradas</h1>
+                {% endif %}
+            <!-- Pager -->
+            
+        </div>
+        </div>
+        <hr>
+    {%endblock contenido%}
+
+    {%block boton%}
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 float-left">
+                {% if categorias.has_previous %}
+                <div class="clearfix">
+                    <a href="?page={{categorias.previous_page_number}}{% if request.GET.search %}&q={{ request.GET.search}}{%endif%}" class="btn btn-primary float-left">Anterior</a>
+                </div>
+                {%endif%}
+            </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 float-right">
+                {% if categorias.has_next %}
+                <div class="clearfix">
+                    <a href="?page={{categorias.next_page_number}}{% if request.GET.search %}&q={{ request.GET.search}}{%endif%}" class="btn btn-primary float-right">Siguiente</a>
+                </div>
+                {%endif%}
+            </div>
+            </div>
+        </div>
+        </div>
+    {%endblock boton%}
