@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+{% load static%}
+
+    {% block titulo %}
+        Post: {{post.titulo}}
+    {% endblock titulo %}
+
+    {%block imagen_principal %}
+    <header class="masthead" style="background-image: url({{post.imagen}})";>
+    {%endblock imagen_principal %}
+
+    {% block titulo_principal %}
+        <h1>{{post.titulo}}</h1>
+        <h3>{{ post.descripcion }}</h3>
+    {% endblock titulo_principal %}
+
+    {%block barra_busqueda%}
+    {%endblock barra_busqueda%}
+
+    {%block contenido %}
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-preview">
+                  <p>
+                    {{ post.contenido | safe }} 
+                  </p>
+                    <p class="post-meta">Escrito por
+                      <strong>{{ post.autor.username }}</strong> |
+                      <strong>creado</strong> {{ post.fecha_creacion }} |
+                      <strong>editado</strong> {{ post.fecha_modificacion }}
+                    </p>
+                </div>
+                <hr>
+            <div class="clearfix">
+              <a class="btn btn-primary float-right" href="{% url 'blog:categorias_post' %}">Volver &rarr;</a>
+            </div>
+        </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+              <div class="col-lg-8 col-md-10 mx-auto">
+                  <div align="left" >
+                    {% if post.comentarios %}
+                      {% for coment in post.comentarios.all %}
+                        <strong>{{ coment.autor }}</strong>
+                        <p>{{ coment.texto|linebreaks }}</p> 
+                      {% endfor %}
+                  </div>
+                  {%else%}
+                    <p>No existen comentarios :(</p>
+                  {%endif%}
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div align="center" >
+          <a class="btn btn-primary float-center" href="{% url 'blog:agregar_comentario' post.slug %}">Comentar &rarr;</a>
+          </div>
+
+        {%endblock contenido%}
