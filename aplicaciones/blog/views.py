@@ -7,6 +7,7 @@ from .forms import PostForm, UsuarioForm, UsuarioActualizarForm, ComentariosForm
 from .models import Categorias, Comentarios, Post
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 
 
 
@@ -121,6 +122,7 @@ def perfil(request):
             return redirect('blog:inicio')
     else:
         u_form = UsuarioActualizarForm(instance=request.user)
+        
     template = 'perfil.html'
     contexto = {
         'u_form':u_form,
@@ -128,6 +130,8 @@ def perfil(request):
     return render(request, template, contexto)
 
 def agregar_comentario(request, slug):
+    if not request.user.is_authenticated:
+        return redirect('blog:acceder')
     post = Post.objects.get(slug=slug)
     if request.method == 'POST':
         form = ComentariosForm(request.POST)
@@ -145,5 +149,9 @@ def agregar_comentario(request, slug):
         'form':form,
     }
     return render(request, template, contexto)
+
+
+
+
 
 

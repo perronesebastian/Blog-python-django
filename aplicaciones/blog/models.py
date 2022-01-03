@@ -21,6 +21,8 @@ class Categorias(models.Model):
 
 class Usuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    email = models.CharField('email', max_length=90, null=False, blank=False, default=False)
+    escritor = models.BooleanField('Es escritor/No es escritor', default=True)
     #image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
     def __str__(self):

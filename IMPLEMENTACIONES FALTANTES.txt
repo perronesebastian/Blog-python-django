@@ -1,0 +1,6 @@
+-La opcion crea tu post solo para usuarios del grupo escritor
+-La opcion de comentar solo para los logueados ---LISTO---
+-Al registrarse el correo debe ser obligatorio ---LISTO---
+-Agregar opcion de editar post
+-Agregar fecha a los comentarios   ---LISTO---
+-Agregar sistema de puntuacion para los comentarios

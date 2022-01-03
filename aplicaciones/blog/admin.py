@@ -26,6 +26,5 @@ class AutorAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = AutorResource
 
 admin.site.register(Categorias, CategoriaAdmin)
-admin.site.register(Usuario, AutorAdmin)
 admin.site.register(Post)
 admin.site.register(Comentarios)

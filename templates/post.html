@@ -41,23 +41,29 @@
         <div class="container">
           <div class="row">
               <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-preview">
                   <div align="left" >
                     {% if post.comentarios %}
                       {% for coment in post.comentarios.all %}
+                        <hr>
                         <strong>{{ coment.autor }}</strong>
-                        <p>{{ coment.texto|linebreaks }}</p> 
+                        <p>{{ coment.texto|linebreaks }}</p>
+                        <FONT COLOR="gray"><i>{{coment.fecha_creacion}}</i> </FONT>
+                        <hr>                 
                       {% endfor %}
                   </div>
+                </div>
                   {%else%}
                     <p>No existen comentarios :(</p>
                   {%endif%}
-                </div>
               </div>
             </div>
           </div>
-        
+        </div>
+        {% if user.is_authenticated %}
           <div align="center" >
           <a class="btn btn-primary float-center" href="{% url 'blog:agregar_comentario' post.slug %}">Comentar &rarr;</a>
           </div>
+        {%endif%}
 
         {%endblock contenido%}
