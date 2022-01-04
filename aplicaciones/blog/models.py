@@ -3,6 +3,7 @@ from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 
 
+
 # Create your models here.
 
 class Categorias(models.Model):
@@ -19,14 +20,12 @@ class Categorias(models.Model):
     def __str__(self):
         return self.nombre
 
-class Usuario(models.Model):
+class Perfil(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.CharField('email', max_length=90, null=False, blank=False, default=False)
-    escritor = models.BooleanField('Es escritor/No es escritor', default=True)
-    #image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    escritor = models.BooleanField('Es escritor/No es escritor', default = False)
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.user.username}'
 
 
 class Post(models.Model):

@@ -40,7 +40,7 @@
               <a class="nav-link" href="{% url 'blog:inicio' %}">Inicio</a>
             </li>
           {% if user.is_authenticated %}
-            {% if user.is_superuser or request.user.escritor %}
+            {% if request.user.perfil.escritor or user.is_superuser %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'blog:crear_post' %}">Crea tu post</a>
               </li>

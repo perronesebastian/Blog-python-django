@@ -18,7 +18,7 @@ class CategoriaAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
 class AutorResource(resources.ModelResource):
     class Meta:
-        model = Usuario
+        model = Perfil
 
 class AutorAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     search_fields = ['user', 'email']
@@ -27,4 +27,5 @@ class AutorAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
 admin.site.register(Categorias, CategoriaAdmin)
 admin.site.register(Post)
+admin.site.register(Perfil)
 admin.site.register(Comentarios)

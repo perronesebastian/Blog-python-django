@@ -26,6 +26,7 @@
                             {% csrf_token %}
                             <fieldset class="form-group">
                                 {{ formulario|crispy }}
+                                {{ perfil_form|crispy }}
                             </fieldset>
                             <div class="form-group">
                                 <button class="btn btn-outline-info" type="submit">Registrarse</button>

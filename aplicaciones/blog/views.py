@@ -3,12 +3,11 @@ from django.http import request
 from django.http.response import Http404
 from django.shortcuts import render, HttpResponse, redirect
 from django.core.paginator import Paginator
-from .forms import PostForm, UsuarioForm, UsuarioActualizarForm, ComentariosForm
-from .models import Categorias, Comentarios, Post
+from .forms import PostForm, UsuarioForm, UsuarioActualizarForm, ComentariosForm, PerfilForm
+from .models import Categorias, Comentarios, Post, Perfil
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
-
+from django.contrib.auth.forms import UserCreationForm
 
 
 # Create your views here.
@@ -65,7 +64,7 @@ def ver_post(request, slug):
 def crear_post(request):
     if not request.user.is_authenticated:
         return redirect('blog:acceder')
-    if not request.user.groups.filter(name='escritor').exists():
+    if Perfil.escritor == False:
         if not request.user.is_superuser:
             return redirect('blog:acceder')
     formulario = PostForm(request.POST or None)
@@ -100,29 +99,34 @@ def editar_post(request):
 def registro(request):
     if request.method == "POST":
         formulario = UsuarioForm(request.POST or None)
-        if formulario.is_valid():
-            usuario = formulario.save()
+        perfil_form = PerfilForm(request.POST)
+        if formulario.is_valid() and perfil_form.is_valid():
+            user = formulario.save()
+            perfil = perfil_form.save(commit=False)
+            perfil.user = user
+            perfil.save()
             messages.success(request, 'Cuenta creada')
             return redirect('blog:acceder')
     else:
         formulario = UsuarioForm()
+        perfil_form = PerfilForm()
     template = 'registro.html'
     contexto = {
         'formulario':formulario,
+        'perfil_form':perfil_form
     }
     return render(request, template, contexto)
 
 @login_required    
 def perfil(request):
     if request.method == 'POST':
-        u_form = UsuarioActualizarForm(request.POST, instance=request.user)
+        u_form = UsuarioActualizarForm(request.POST, instance=request.user)  
         if u_form.is_valid():
             u_form.save()
             messages.success(request, 'Su cuenta se actualizo correctamente')
             return redirect('blog:inicio')
     else:
         u_form = UsuarioActualizarForm(instance=request.user)
-        
     template = 'perfil.html'
     contexto = {
         'u_form':u_form,
@@ -149,6 +153,9 @@ def agregar_comentario(request, slug):
         'form':form,
     }
     return render(request, template, contexto)
+
+    
+
 
 
 
